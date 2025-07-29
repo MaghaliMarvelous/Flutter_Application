@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
 
-              // 2x2 Operator Buttons
+              
               GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
               SizedBox(height: 20),
 
-              // Reset button
+             
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
