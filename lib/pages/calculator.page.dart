@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_pplg1_20/components/widget_textfield.dart';
 import 'package:flutter_application_pplg1_20/components/widget_button.dart';
 import 'package:flutter_application_pplg1_20/controllers/calculator_controller.dart';
+import 'package:flutter_application_pplg1_20/routes/routes.dart';
 import 'package:get/get.dart';
 
 class CalculatorPage extends StatelessWidget {
@@ -47,8 +48,9 @@ class CalculatorPage extends StatelessWidget {
             ),
             // render UI berada di wrap OBX
             Obx(() => Text("Hasil "+calculatorController.hasil.value)),
-            CustomButton(text: "Clear", textColor: Colors.green, onPressed: () {
-              
+            CustomButton(text: "Move to Football players", textColor: Colors.green, 
+            onPressed: () {
+              Get.offAllNamed(AppRoutes.footballplayers);
             }, )
       
           ],
