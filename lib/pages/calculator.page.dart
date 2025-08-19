@@ -28,7 +28,7 @@ class CalculatorPage extends StatelessWidget {
                     calculatorController.tambah();
                   },),
                   CustomButton(text: "-", textColor: Colors.blue, onPressed: () {
-                    
+                    calculatorController.kurang();
                   },),
                 ],
               ),
@@ -38,21 +38,23 @@ class CalculatorPage extends StatelessWidget {
               child: Row(
                 children: [
                   CustomButton(text: "X", textColor: Colors.blue, onPressed: () {
-                    
+                    calculatorController.kali();
                   },),
                   CustomButton(text: "/", textColor: Colors.blue, onPressed: () {
-                    
+                    calculatorController.bagi();
                   },),
                 ],
               ),
             ),
-            // render UI berada di wrap OBX
-            Obx(() => Text("Hasil "+calculatorController.hasil.value)),
-            CustomButton(text: "Move to Football players", textColor: Colors.green, 
-            onPressed: () {
-              Get.offAllNamed(AppRoutes.footballplayers);
-            }, )
-      
+            Obx(() => Text("Hasil " + calculatorController.hasil.value)),
+            
+            CustomButton(
+              text: "Clear",
+              textColor: Colors.red,
+              onPressed: () {
+                calculatorController.clear();
+              },
+            ),
           ],
         ),
       ),
