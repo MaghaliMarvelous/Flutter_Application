@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const BottomNavPage(), // 👈 start with navbar wrapper
+      home: BottomNavPage(), // 👈 start with navbar wrapper
     );
   }
 }
