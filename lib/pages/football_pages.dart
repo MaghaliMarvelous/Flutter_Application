@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_pplg1_20/controllers/football_controller.dart';
-import 'package:flutter_application_pplg1_20/pages/football_edit_page.dart';
+import 'package:flutter_application_pplg1_20/routes/routes.dart';
 import 'package:get/get.dart';
+import 'package:flutter_application_pplg1_20/controllers/football_controller.dart';
 
 class FootballPage extends StatelessWidget {
   FootballPage({super.key});
@@ -11,29 +11,34 @@ class FootballPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Football Players"),
+        title: const Text("Football Players"),
         centerTitle: true,
-        backgroundColor: Colors.green[700],
+        backgroundColor: Colors.green,
       ),
       body: Container(
-        margin: EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
         child: Obx(() => ListView.builder(
               itemCount: footballController.players.length,
               itemBuilder: (context, index) {
                 final player = footballController.players[index];
                 return GestureDetector(
                   onTap: () {
+                    // show snack
                     Get.snackbar(
                       "Player Selected",
                       player.name,
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: Colors.green,
                       colorText: Colors.white,
-                      duration: Duration(seconds: 1),
+                      duration: const Duration(milliseconds: 600),
                     );
 
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      Get.to(() => EditFootballPage(index: index));
+                    // navigate ke edit
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      Get.toNamed(
+                       AppRoutes.footballeditplayers,
+                        arguments: {"index": index},
+                      );
                     });
                   },
                   child: Card(
@@ -41,12 +46,11 @@ class FootballPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     elevation: 4,
-                    margin: EdgeInsets.symmetric(vertical: 8),
+                    margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Row(
                         children: [
-                          // Profile image
                           ClipRRect(
                             borderRadius: BorderRadius.circular(50),
                             child: Image.asset(
@@ -56,20 +60,19 @@ class FootballPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(width: 16),
-                          // Player info
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   player.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
                                   player.position,
                                   style: TextStyle(
@@ -80,9 +83,8 @@ class FootballPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // Number badge
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 6, horizontal: 12),
                             decoration: BoxDecoration(
                               color: Colors.green[100],

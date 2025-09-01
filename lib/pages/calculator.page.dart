@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_pplg1_20/components/widget_textfield.dart';
 import 'package:flutter_application_pplg1_20/components/widget_button.dart';
 import 'package:flutter_application_pplg1_20/controllers/calculator_controller.dart';
-import 'package:flutter_application_pplg1_20/routes/routes.dart';
 import 'package:get/get.dart';
 
 class CalculatorPage extends StatelessWidget {

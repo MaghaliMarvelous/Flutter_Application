@@ -1,20 +1,39 @@
 import 'package:get/get.dart';
+import 'football_controller.dart';
 
 class FootballEditController extends GetxController {
-  // Contoh data pemain
-  var playerName = ''.obs;
-  var playerPosition = ''.obs;
+  late RxString playerName;
+  late RxString playerPosition;
+  late int editingIndex;
 
-  // Inisialisasi data pemain yang akan diedit
-  void setPlayerData(String name, String position) {
-    playerName.value = name;
-    playerPosition.value = position;
+  late FootballController footballController;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    footballController = Get.find<FootballController>();
+
+
+    final args = Get.arguments;
+    editingIndex = args["index"];
+
+    final player = footballController.players[editingIndex];
+    playerName = player.name.obs;
+    playerPosition = player.position.obs;
   }
 
-  // Simpan perubahan data pemain
-  void savePlayerData() {
-    // Lakukan proses update data di database atau state
-    // Setelah itu kembali ke halaman list
-    Get.back();
+  void savePlayer() {
+    final oldPlayer = footballController.players[editingIndex];
+
+    final updatedPlayer = Player(
+      name: playerName.value,
+      position: playerPosition.value,
+      number: oldPlayer.number,
+      profileImage: oldPlayer.profileImage,
+    );
+
+    footballController.players[editingIndex] = updatedPlayer;
+    footballController.players.refresh();
   }
 }
