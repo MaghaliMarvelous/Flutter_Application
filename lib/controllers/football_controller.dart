@@ -1,6 +1,8 @@
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+var isMobile = true.obs;
 
 class Player {
   final String profileImage;
@@ -17,6 +19,8 @@ class Player {
 }
 
 class FootballController extends GetxController {
+  var isMobile = true.obs; // <-- move it here
+
   final players = <Player>[
     Player(
       profileImage: 'assets/harry_kane.jpeg',
@@ -48,5 +52,9 @@ class FootballController extends GetxController {
       position: 'Goalkeeper',
       number: 1,
     ),
-  ].obs; // <-- This makes the list reactive
+  ].obs;
+
+  void updateLayout(BoxConstraints constraints) {
+    isMobile.value = constraints.maxWidth < 600;
+  }
 }

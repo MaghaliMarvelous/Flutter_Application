@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_application_pplg1_20/pages/calculator.page.dart';
+import 'package:flutter_application_pplg1_20/pages/football_pages.dart';
+import 'package:flutter_application_pplg1_20/pages/premier_table_page.dart';
+import 'package:flutter_application_pplg1_20/pages/profile_page.dart';
+import 'package:flutter_application_pplg1_20/pages/contact_page.dart';
+import 'package:flutter_application_pplg1_20/pages/example_page.dart';
+import 'package:flutter_application_pplg1_20/pages/notification_page.dart';
+import 'package:flutter_application_pplg1_20/sidebar/sidebar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,148 +16,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController angkaPertamaController = TextEditingController();
-  TextEditingController angkaKeduaController = TextEditingController();
-  String hasil = "0";
+  int _selectedIndex = 0;
 
-  void showEmptyWarning() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Masukkan angka pertama dan kedua terlebih dahulu"),
-      ),
-    );
+  final List<Widget> _pages =  [
+    ProfilePage(),
+    FootballPage(),
+    CalculatorPage(),
+    ContactPage(),
+    ExamplePage(),
+    NotificationPage(),
+    PremierTablePage(),
+  ];
+
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.pop(context); // Close drawer
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kalkulator")),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              TextField(
-                controller: angkaPertamaController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  labelText: "First Number",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextField(
-                controller: angkaKeduaController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  labelText: "Second Number",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 2.5,
-                children: [
-                  _buildOperatorButton("+"),
-                  _buildOperatorButton("-"),
-                  _buildOperatorButton("×"),
-                  _buildOperatorButton("÷"),
-                ],
-              ),
-
-              Divider(height: 30, thickness: 1, color: Colors.grey),
-
-              Text(
-                "Hasil:",
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                hasil,
-                style: TextStyle(
-                    fontSize: 32,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-
-              SizedBox(height: 20),
-
-             
-              SizedBox(
-                width: 300,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (angkaPertamaController.text.isEmpty &&
-                        angkaKeduaController.text.isEmpty) {
-                      showEmptyWarning();
-                      return;
-                    }
-                    setState(() {
-                      angkaPertamaController.clear();
-                      angkaKeduaController.clear();
-                      hasil = "0";
-                    });
-                  },
-                  child: Text("Reset"),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOperatorButton(String operator) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue.shade50,
-        foregroundColor: Colors.black,
-        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      onPressed: () {
-        if (angkaPertamaController.text.isEmpty ||
-            angkaKeduaController.text.isEmpty) {
-          showEmptyWarning();
-          return;
-        }
-
-        int a = int.parse(angkaPertamaController.text);
-        int b = int.parse(angkaKeduaController.text);
-
-        setState(() {
-          switch (operator) {
-            case "+":
-              hasil = (a + b).toString();
-              break;
-            case "-":
-              hasil = (a - b).toString();
-              break;
-            case "×":
-              hasil = (a * b).toString();
-              break;
-            case "÷":
-              if (b != 0) {
-                hasil = (a / b).toStringAsFixed(2);
-              } else {
-                hasil = "Error (÷0)";
-              }
-              break;
-          }
-        });
-      },
-      child: Text(operator),
+      appBar: AppBar(title: const Text("Main Menu")),
+      drawer: SideBar(onItemTap: _onItemTap),
+      body: _pages[_selectedIndex],
     );
   }
 }

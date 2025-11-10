@@ -32,13 +32,19 @@ dependencies:
     sdk: flutter
   calendar_date_picker2: ^2.0.1
   intl: ^0.18.1
-
-
-
+  shared_preferences: ^2.5.3
+  sqflite: ^2.3.0
+  flutter_local_notifications: ^17.2.1
+  google_sign_in: ^6.2.1
+  firebase_auth: ^6.1.2
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.7.2
+  http: ^1.5.0
+  firebase_messaging: ^16.0.3
+  firebase_core: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +76,7 @@ flutter:
     - assets/leroy sane.jpg
     - assets/delight.jpg
     - assets/neueer.jpg
+    - assets/google_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
